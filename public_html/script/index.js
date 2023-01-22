@@ -19,15 +19,94 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 addEventListener("DOMContentLoaded", () => {
+  document
+    .getElementById("login-show-password")
+    .addEventListener("change", () => {
+      document
+        .getElementById("login-password")
+        .setAttribute(
+          "type",
+          document.getElementById("login-show-password").checked
+            ? "text"
+            : "password"
+        );
+    });
   document.getElementById("login-submit").addEventListener("click", () => {
-    // TODO: make some post request
+    document.getElementById("login-error").setAttribute("hidden", "");
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    if (email === "") {
+      document.getElementById("login-error-message").innerText =
+        "Missing email";
+      document.getElementById("login-error").removeAttribute("hidden");
+      return;
+    }
+
+    if (password === "") {
+      document.getElementById("login-error-message").innerText =
+        "Missing password";
+      document.getElementById("login-error").removeAttribute("hidden");
+      return;
+    }
+
+    alert(`TODO: log in using email = ${email} and password = ${password}`);
   });
   document.getElementById("login-toggle").addEventListener("click", () => {
     document.getElementById("login-form").setAttribute("hidden", "");
     document.getElementById("register-form").removeAttribute("hidden");
   });
+  document
+    .getElementById("register-show-password")
+    .addEventListener("change", () => {
+      const inputType = document.getElementById("register-show-password")
+        .checked
+        ? "text"
+        : "password";
+      document
+        .getElementById("register-password-1")
+        .setAttribute("type", inputType);
+      document
+        .getElementById("register-password-2")
+        .setAttribute("type", inputType);
+    });
   document.getElementById("register-submit").addEventListener("click", () => {
-    // TODO
+    document.getElementById("register-error").setAttribute("hidden", "");
+
+    const email = document.getElementById("register-email").value;
+    const password1 = document.getElementById("register-password-1").value;
+    const password2 = document.getElementById("register-password-2").value;
+
+    if (email === "") {
+      document.getElementById("register-error-message").innerText =
+        "Missing email";
+      document.getElementById("register-error").removeAttribute("hidden");
+      return;
+    }
+
+    if (password1 === "") {
+      document.getElementById("register-error-message").innerText =
+        "Missing password";
+      document.getElementById("register-error").removeAttribute("hidden");
+      return;
+    }
+
+    if (password1 !== password2) {
+      document.getElementById("register-error-message").innerText =
+        "Passwords do not match";
+      document.getElementById("register-error").removeAttribute("hidden");
+      return;
+    }
+
+    if (!document.getElementById("register-tandc-agreed").checked) {
+      document.getElementById("register-error-message").innerText =
+        "You must read and agree to the terms and conditions";
+      document.getElementById("register-error").removeAttribute("hidden");
+      return;
+    }
+
+    alert(`TODO: register using email = ${email} and password = ${password1}`);
   });
   document.getElementById("register-toggle").addEventListener("click", () => {
     document.getElementById("register-form").setAttribute("hidden", "");
